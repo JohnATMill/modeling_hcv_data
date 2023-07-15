@@ -1,0 +1,25 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      scroll_highlight: true
+      toolbar: fixed
+      before: |
+        <li><a href="./">Milliman FIA study- 2022 Surrender</a></li>
+      after: |
+       <li><a href="https://us.milliman.com/en/" target="blank">Milliman Inc.</a></li>
+    sharing: none
+    info: true
+    search: yes
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+    before_body: frontpage.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default
+bookdown::bs4_book: default
+
+

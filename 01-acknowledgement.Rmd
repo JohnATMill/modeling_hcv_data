@@ -1,0 +1,12 @@
+# ACKNOWLEDGMENTS {-}
+
+This research would not be possible without the support and contributions from our participating companies, and for that we are very grateful. We also thank our extended team members for their support. Sam Nandi and David Wang provided direction and insight. Kshitij Srivastava, Paulami Bandyopadhyay, Evan Brand, Tarun Singh, Deepanshi Jain, Yash Bhatt, Madhav Samariya, and Siladitya Basu helped immensely in preparing data and structuring and testing the Recon® platform that accompanies this report, available to purchasers of the study. Many others around Milliman have helped us generate ideas and given feedback along the way, and we are grateful for their contributions.
+
+**LIMITATIONS AND DATA RELIANCE**
+
+This report is intended solely for educational purposes and presents information of a general nature. It is not intended to guide or determine any specific individual situation, and readers should consult qualified professionals before taking specific actions. 
+In performing this analysis, we relied on data and other information provided by participating companies. We have not audited or verified this data and other information. We performed a limited review of the data used directly in our analysis for reasonableness and consistency. In cases where a small number of records in the data were found to have inconsistencies, these records were removed prior to modeling. A full audit of the data is beyond the scope of this assignment. If the underlying data or information is inaccurate or incomplete, the results of our analysis may change as well.
+
+**LIMITS ON DISTRIBUTION**
+
+This report is intended for the internal use of the recipient, its affiliates (as defined within the agreement), and their advisers. It may not be otherwise distributed without our prior written consent, which will not be unreasonably withheld. Any other distribution will require execution of a third-party release by the recipient, provided, however, that written work may be distributed to third parties without our prior consent if such disclosure is requested by any regulator of a recipient or any of its affiliates and provided that the recipient shall reference the terms and conditions in the agreement, or is required by applicable law, regulation, or governmental or similar order.

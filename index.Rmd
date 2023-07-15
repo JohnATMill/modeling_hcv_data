@@ -1,0 +1,31 @@
+--- 
+title: 'Modeling HCV Data - Classification Models'
+author:
+- <span style="color:#1E90FF">John Koomson</span>, FSA, MAAA
+
+date: "November 2022"
+output:
+  html_document:
+    df_print: paged
+site: bookdown::bookdown_site
+documentclass: book
+bibliography:
+- book.bib
+- packages.bib
+biblio-style: apalike
+cover-image: 
+link-citations: yes
+description:
+subtitle: null
+---
+# Models {-}
+
+
+
+```{r, echo=FALSE, include=TRUE}
+knitr::include_graphics("images.jpg")
+```
+
+
+
+

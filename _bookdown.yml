@@ -1,0 +1,12 @@
+book_filename: "HCV_MODELLINGr"
+rmd_files:
+  html:
+  - index.Rmd
+  - 01-acknowledgement.Rmd
+  - 02-executive_summary.Rmd
+language:
+  ui:
+    chapter_name: ""
+delete_merged_file: true
+new_session: 'yes'
+
