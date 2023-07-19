@@ -1,0 +1,71 @@
+# V-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES 
+
+```{r, warning=FALSE, message=FALSE}
+library(earth)
+library(caret)     
+library(vip)       
+library(pdp)       
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+data<-read.csv("data/CleanedData.csv",header = T,colClasses=c("NULL", rep(NA, 13)))
+
+set.seed(10)
+V <- 5
+n <- NROW(data); n0 <- sum(data$Category==0); n1 <- n-n0;
+
+missclass.rate = c()
+err_vec1=c()
+
+for (v in 1:V) {
+  err_vec1=c(err_vec1, v)
+  missclass.rate=c(missclass.rate, v)
+}
+
+id.fold <- 1:n
+id.fold[data$Category==0] <- sample(x=1:V, size=n0, replace=TRUE)
+id.fold[data$Category==1] <- sample(x=1:V, size=n1, replace=TRUE)
+for (v in 1:V) {
+train.v <- data[id.fold!=v, ]; test.v <- data[id.fold==v, ];
+
+fit.mars = earth(factor(Category) ~ .,  data = train.v, degree=3, 
+                 glm = list(family=binomial(link = "logit")))
+#print(fit.mars) 
+#summary(fit.mars) %>% .$coefficients %>% head(10)
+
+yobs = test.v$Category
+pred.mars = predict(fit.mars, newdata=test.v[, -1], type="response")
+mod = roc.area(yobs, pred.mars)$A
+err_vec1[v] = mod
+print(paste("AUC for fold", v, ":", err_vec1[v]))
+
+pred.rate = ifelse(pred.mars > 0.5, 1, 0)
+miss.rate <- mean(yobs != pred.rate)
+missclass.rate[v] = miss.rate
+print(paste("Missclassification rate for fold", v,
+           ":",missclass.rate[v]))
+
+}
+Average.AUC.mars<-print(paste("Average of AUC:", mean(err_vec1)))
+Average.Misclass.mars<-print(paste("Average of Miss:", mean(missclass.rate)))
+AUC.mars<-mean(err_vec1)
+Miss.rate.mars<- mean(missclass.rate)
+```
+
+```{r}
+Average.AUC.mars<-print(paste("Average of AUC is", mean(err_vec1)))
+Average.Misclas.mars<-print(paste("Average of Missclassification is ", mean(missclass.rate)))
+```
+**comment**
+We can observe that,the average AUC is approcximately 0.02 with misclassification rate of 0.05.AU of 0.92 show that the model is good in classification.
+
+
+```{r}
+summary(fit.mars)
+vip(fit.mars, num_features = 24) + ggtitle("GCV")
+```
+**comment**
+
+From the variable importance plot we can see that,AST,ALT,PROT in descending order are important variables by MARS.

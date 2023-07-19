@@ -5,6 +5,8 @@ rmd_files:
   - 01-CleanData.Rmd
   - 02-EDA.Rmd
   - 03-Logistic.Rmd
+  - 04-RandomForest.Rmd
+  - 05-MARS.Rmd
 language:
   ui:
     chapter_name: ""

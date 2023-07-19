@@ -1,0 +1,134 @@
+# V-Folds for Artificial Neural Networks 1
+
+```{r, include=FALSE}
+library(neuralnet)
+```
+
+
+```{r}
+data<-read.csv("data/CleanedData.csv",header = T,colClasses=c("NULL", rep(NA, 13)))
+
+set.seed(666)
+V <- 10
+n <- NROW(data); n0 <- sum(data$Category==0); n1 <- n-n0;
+mis.class.rate = c()
+discri.rate=c()
+id.fold <- 1:n
+id.fold[data$Category==0] <- sample(x=1:V, size=n0, replace=TRUE)
+id.fold[data$Category==1] <- sample(x=1:V, size=n1, replace=TRUE)
+
+for (v in 1:V) {
+  mis.class.rate = c(mis.class.rate, v)
+  discri.rate=c(discri.rate, v)
+  train.v <- data[id.fold!=v, ]; test.v <- data[id.fold==v, ];
+   X.train <- train.v[, -1]; X.test <- test.v[, -1]
+    scale.train <- scale(X.train, center=TRUE, scale = TRUE)
+    train.v[,2:14] <- as.data.frame(scale.train)
+    test.v[, 2:14] <- as.data.frame(scale(X.test,                        center=attributes(scale.train)$`scaled:center`,                        scale=attributes(scale.train)$`scaled:scale`))
+
+#?neuralnet
+yobs <- test.v[, 1]
+fit.ann1 = neuralnet(Category~., data=train.v, hidden=6,
+  rep = 1,threshold = 0.05, stepmax = 1e+05,
+  algorithm = "rprop+", err.fct = "ce",
+  act.fct = "logistic", linear.output=FALSE,
+  likelihood=TRUE)
+
+
+#pred.ann1 = as.vector(neuralnet::compute(fit.ann1,
+                        #covariate=test.v3[,-1])$net.result)
+pred.ann1<-predict(fit.ann1, test.v[,-1], type = "response")
+discri.rate[v] = roc.area(yobs, pred.ann1)$A
+
+print(paste("AUC for fold", v, ":", discri.rate[v]))
+
+mis.class.rate[v] <- mean(yobs != (pred.ann1>0.5))
+print(paste("Missclassification rate for fold", v,
+           ":",mis.class.rate[v]))
+}
+
+```
+
+```{r}
+plot(fit.ann1)
+```
+
+**comment**
+We can observe that this ANN has one hidden layer and one intercept.
+
+**comment**
+
+We train an ANN model with 6hidden neurons or vertices.Also,we consider a linear output.Also,we can observe that,the algorithm output the AUC of each fold and the misclassification rate.
+
+```{r}
+Average.AUC.ANN1<-print(paste("Average of AUC:", mean(discri.rate)))
+Average.Misclass<-print(paste("Average of Miss:", mean(mis.class.rate)))
+AUC.ANN1<-mean(discri.rate)
+Miss.rate.ANN1<-mean(mis.class.rate)
+```
+
+**comment**
+
+The mean of the AUC of the first ANN is9.94 with misclassification rate of 0.05.Thus we can conclude that,the model is good in average during the classification over the folds.
+
+# ARTIFICIAL NEURAL NETWORK 2(V-FOLDS FOR THE SECOND ANN)
+
+```{r, message=F, warning=F}
+
+
+set.seed(666)
+V <- 10
+n <- NROW(data); n0 <- sum(data$Category==0); n1 <- n-n0;
+mis.class.rate = c()
+discri.rate=c()
+id.fold <- 1:n
+id.fold[data$Category==0] <- sample(x=1:V, size=n0, replace=TRUE)
+id.fold[data$Category==1] <- sample(x=1:V, size=n1, replace=TRUE)
+for (v in 1:V) {
+  mis.class.rate = c(mis.class.rate, v)
+  discri.rate=c(discri.rate, v)
+  train.v <- data[id.fold!=v, ]; test.v <- data[id.fold==v, ];
+    X.train <- train.v[, -1]; X.test <- test.v[, -1]
+    scale.train <- scale(X.train, center=TRUE, scale = TRUE)
+    train.v[,2:14] <- as.data.frame(scale.train)
+    test.v[, 2:14] <- as.data.frame(scale(X.test,                        center=attributes(scale.train)$`scaled:center`,                        scale=attributes(scale.train)$`scaled:scale`))
+
+    yobs <- test.v[, 1]
+fit.ann2 = neuralnet(Category~., data=train.v, hidden=c(5,3),
+  rep = 1,threshold = 0.05, stepmax = 1e+05,
+  algorithm = "rprop+", err.fct = "ce",
+  act.fct = "logistic", linear.output=FALSE,
+  likelihood=TRUE)
+#pred.ann1 = as.vector(neuralnet::compute(fit.ann1,
+                        #covariate=test.v3[,-1])$net.result)
+pred.ann2<-predict(fit.ann2, test.v[,-1], type = "response")
+discri.rate[v] = roc.area(yobs, pred.ann2)$A
+
+print(paste("AUC for fold", v, ":", discri.rate[v]))
+
+mis.class.rate[v] <- mean(yobs != (pred.ann2>0.5))
+print(paste("Missclassification rate for fold", v,
+           ":",mis.class.rate[v]))
+}
+
+```
+
+
+```{r}
+plot(fit.ann2)
+```
+
+
+**comment**
+From the plot,we can see the two hidden layers and the neuron for the constant.
+
+```{r}
+Average.AUC.ANN2<-print(paste("Average of AUC:", mean(discri.rate)))
+Average.Misclas.ANN2<-print(paste("Average of Miss:", mean(mis.class.rate)))
+AUC.ANN2<-mean(discri.rate)
+Miss.rate.ANN2<-mean(mis.class.rate)
+```
+
+**COMMENT*
+
+In the ANN2,we consider two hidden layer unlike the first ANN.In both scenarios,we considered Also,we consider linear output.We observe that,the average AUC in this scenarion was higher compared with ANN1.Thus,ANN1 can be considered as a better model for classification among the two.

@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 # LOGISTIC REGRESSION
 
@@ -113,7 +118,7 @@ miss.rate.LOIS<-mean(missclass.rate)
 
 ```{r}
 plot(fit.final)
-fit.best$beta
+#fit.best$beta
 final.fit<-glm(train.v$Category~ALP+ALT+AST+BIL+CHOL+CREA+GGT+PROT, family = (link =  "binomial"), data = train.v)
 
 ```
