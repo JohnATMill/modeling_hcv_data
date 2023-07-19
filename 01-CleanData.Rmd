@@ -1,0 +1,77 @@
+# Data Cleaning {#data}
+
+```{r, include=FALSE}
+#Loading Packages 
+library(magrittr)
+library(tidyverse)
+library(dplyr)
+library(naniar)
+library(kableExtra)
+library(mice)
+library(skimr)
+```
+
+
+```{r}
+#Importing
+
+data<-read.csv("data/hcvdat0.csv",header = T,colClasses=c("NULL", rep(NA, 13))) 
+#glimpse(data)
+skimr::skim(data)[1:3]
+```
+
+
+
+Modify the target variableCategoryinto binary so that Category= 0 if it falls into either"0=Blood Donor"or"0s=suspect Blood Donor"and 1 if it falls into any other categoryexcept being missing, in which case we keep it as is.
+
+```{r}
+data$Category<-ifelse(data$Category=="0=Blood Donor" | data$Category=="0s=suspect Blood Donor",0,1)
+```
+
+
+
+Obtain the frequency distribution of Category. Observe  Imbalanced classification problem
+```{r}
+table(data$Category)    #Frequency distribution of Category
+```
+We can see that,we have no missing values for the variable "Category".Also,the frequency distribution shows "0"=570  and "1"=75.This shows an imbalanced classification problem since the frequency of response (Category) is skewed towards "0".
+
+
+
+(c)  Inspect for the missing values in the predictors.  Impute the missing values if any. Note that you are not supposed to use information in the target variable when performing the imputation.
+
+```{r}
+colMeans(is.na(data))
+```
+This shows the proportion of missing values in each column or varibale. We can observe that,ALP has the highest missing values.
+
+```{r}
+#Checking the proportion of missing values in the data
+gg_miss_upset(data)
+```
+
+
+
+
+
+
+```{r, include=FALSE}
+Impute<-mice(data, m=5,maxit = 40)
+data<-complete(Impute, 5)
+write.csv(data, "data/CleanedData.csv")
+```
+
+
+Mice Imputation for missing values. 
+
+
+
+(d)  Use model.matrix()to change the data matrix into numeric.  Dummy variables will be automatically created for each categorical predictor.
+
+```{r}
+data<-model.matrix(~.,data = data)
+data<-data[,-1]
+```
+
+
+
