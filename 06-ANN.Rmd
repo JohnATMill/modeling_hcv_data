@@ -2,14 +2,16 @@
 
 ```{r, include=FALSE}
 library(neuralnet)
+library(pROC)
 ```
 
 
-```{r}
+```{r, include=F}
 data<-read.csv("data/CleanedData.csv",header = T,colClasses=c("NULL", rep(NA, 13)))
+data$Sex<- ifelse(data$Sex=="m", 1, 0)
 
 set.seed(666)
-V <- 10
+V <- 5
 n <- NROW(data); n0 <- sum(data$Category==0); n1 <- n-n0;
 mis.class.rate = c()
 discri.rate=c()
@@ -38,7 +40,7 @@ fit.ann1 = neuralnet(Category~., data=train.v, hidden=6,
 #pred.ann1 = as.vector(neuralnet::compute(fit.ann1,
                         #covariate=test.v3[,-1])$net.result)
 pred.ann1<-predict(fit.ann1, test.v[,-1], type = "response")
-discri.rate[v] = roc.area(yobs, pred.ann1)$A
+discri.rate[v] = auc(yobs, pred.ann1)
 
 print(paste("AUC for fold", v, ":", discri.rate[v]))
 
@@ -102,7 +104,7 @@ fit.ann2 = neuralnet(Category~., data=train.v, hidden=c(5,3),
 #pred.ann1 = as.vector(neuralnet::compute(fit.ann1,
                         #covariate=test.v3[,-1])$net.result)
 pred.ann2<-predict(fit.ann2, test.v[,-1], type = "response")
-discri.rate[v] = roc.area(yobs, pred.ann2)$A
+discri.rate[v] = auc(yobs, pred.ann2)
 
 print(paste("AUC for fold", v, ":", discri.rate[v]))
 

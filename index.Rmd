@@ -1,9 +1,9 @@
 --- 
 title: 'Modeling HCV Data - Classification Models'
 author:
-- <span style="color:#1E90FF">John Koomson</span>, FSA, MAAA
+- <span style="color:#1E90FF">John Koomson</span>
 
-date: "November 2022"
+date: "July 2023"
 output:
   html_document:
     df_print: paged
@@ -18,11 +18,17 @@ link-citations: yes
 description:
 subtitle: null
 ---
-# Models {-}
+# Project Overview and Bookdown{#intro}
+
+This project advocates for the use of bookdown in rendering data science projects and executive reports unlike the traditional reporting standards in pdf format.Traditional format of rendering books or reports in Latex formats and Word documents can be quite challenging in regards to typsetting details and commands. However, what if there's an efficient way to render books to readers. What if users want to leave comment for authors, what if users want to interact with plots in book, what if clients want to access report without storing pdf's documentations on their personal drives.
+
+**Bookdown** can help you prepare a book by rendering multiple (R Markedown) files into single book. In most instances users can interact with object in the book by changing certain parameters in a statistical model etc. The major focus of this project is to demonstrate how author's and data scientist can bridge the gap between users and clients. Also, knowledge of HTML/CSS is not really needed  in order to create a book. Check out a demo book by [bookdown](https://bookdown.org/yihui/bookdown/) and books created from bookdown [Examples](https://bookdown.org/).  
+
+Note: ^[**Codes** were originally written for my data science projects in **Statistical Data Mining** lectured by [Xiaogang Su, Ph.D.](https://hb2504.utep.edu/Home/Profile?username=xsu)]
 
 
 
-```{r, echo=FALSE, include=TRUE}
+```{r, echo=FALSE, include=TRUE, out.width= "100%"}
 knitr::include_graphics("images.jpg")
 ```
 

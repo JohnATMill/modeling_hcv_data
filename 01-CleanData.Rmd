@@ -1,5 +1,7 @@
 # Data Cleaning {#data}
 
+As mentioned in \ref(intro)
+
 ```{r, include=FALSE}
 #Loading Packages 
 library(magrittr)

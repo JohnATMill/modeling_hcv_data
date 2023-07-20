@@ -3,6 +3,7 @@
 
 ```{r, include=FALSE}
 library(randomForest)
+library(pROC)
 ```
 
 
@@ -14,7 +15,7 @@ V <- 5
 n <- NROW(data); n0 <- sum(data$Category==0); n1 <- n-n0;
 
 missclass.rate = c()
-err_vec1=c()
+err_vec1= c()
 
 for (v in 1:V) {
   err_vec1=c(err_vec1, v)
@@ -39,7 +40,7 @@ fit.rf = randomForest(factor(Category) ~., mtry=best.mtry,
                       ntree=500)
 yobs = test.v$Category
 pred.rf = predict(fit.rf, newdata=test.v[, -1], type="prob")[, 2]
-mod = roc.area(yobs, pred.rf)$A
+mod = auc(yobs, pred.rf)
 err_vec1[v] = mod
 print(paste("AUC for fold", v, ":", err_vec1[v]))
 
@@ -53,7 +54,9 @@ varImpPlot(fit.rf)    ##Variance Importance Plot
 importance(fit.rf)  
 ```
 
+
 **comment**
+
 The importance ranking shows that.AST,ALP,ALT are the important variables by random forest respectively.
 
 

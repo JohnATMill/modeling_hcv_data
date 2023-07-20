@@ -7,6 +7,9 @@ rmd_files:
   - 03-Logistic.Rmd
   - 04-RandomForest.Rmd
   - 05-MARS.Rmd
+  - 06-ANN.Rmd
+  - 07-SVM.Rmd
+  - 08-conclusion.Rmd
 language:
   ui:
     chapter_name: ""

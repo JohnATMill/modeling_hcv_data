@@ -4,7 +4,8 @@
 library(earth)
 library(caret)     
 library(vip)       
-library(pdp)       
+library(pdp)  
+library(pROC)
 ```
 
 
@@ -37,7 +38,7 @@ fit.mars = earth(factor(Category) ~ .,  data = train.v, degree=3,
 
 yobs = test.v$Category
 pred.mars = predict(fit.mars, newdata=test.v[, -1], type="response")
-mod = roc.area(yobs, pred.mars)$A
+mod = auc(yobs, pred.mars)
 err_vec1[v] = mod
 print(paste("AUC for fold", v, ":", err_vec1[v]))
 
