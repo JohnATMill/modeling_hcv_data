@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES | Modeling HCV Data - Classification Models</title>
+  <meta name="description" content="6 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES | Modeling HCV Data - Classification Models" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES | Modeling HCV Data - Classification Models" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES | Modeling HCV Data - Classification Models" />
+  
+  
+  
+
+<meta name="author" content="John Koomson" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fitting-random-forest.html"/>
+<link rel="next" href="folds-for-artificial-neural-networks-1-layer.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modeling HCV Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview and Bookdown</a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#missing-values-and-mice-imputation."><i class="fa fa-check"></i><b>2.1</b> Missing values and MICE Imputation.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Basic Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#density-plot"><i class="fa fa-check"></i><b>3.1</b> Density Plot</a></li>
+<li class="chapter" data-level="3.2" data-path="dataanalysis.html"><a href="dataanalysis.html#interactive-plot-among-the-columns"><i class="fa fa-check"></i><b>3.2</b> Interactive Plot Among the columns</a></li>
+<li class="chapter" data-level="3.3" data-path="dataanalysis.html"><a href="dataanalysis.html#outlier-detection"><i class="fa fa-check"></i><b>3.3</b> Outlier Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html"><i class="fa fa-check"></i><b>4</b> REGULARIZED LOGISTIC REGRESSION</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#data-partition"><i class="fa fa-check"></i><b>4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="4.2" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fitting-random-forest.html"><a href="fitting-random-forest.html"><i class="fa fa-check"></i><b>5</b> FITTING RANDOM FOREST</a></li>
+<li class="chapter" data-level="6" data-path="folds-for-multivariate-adaptive-regression-splines.html"><a href="folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
+<li class="chapter" data-level="7" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html"><i class="fa fa-check"></i><b>7</b> 5-Folds for Artificial Neural Networks (1 LAYER)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html#artificial-neural-network-2-2-layers"><i class="fa fa-check"></i><b>7.1</b> ARTIFICIAL NEURAL NETWORK 2 (2 layers)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="folds-for-support-vector-machine-1.html"><a href="folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>8</b> 5- folds for SUPPORT VECTOR MACHINE 1</a></li>
+<li class="chapter" data-level="9" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>9</b> Summary</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/JohnATMill/modeling_hcv_data.git" target="blank">Github Code</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modeling HCV Data - Classification Models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="folds-for-multivariate-adaptive-regression-splines" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES<a href="folds-for-multivariate-adaptive-regression-splines.html#folds-for-multivariate-adaptive-regression-splines" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>See Github for code <a href="https://github.com/JohnATMill/modeling_hcv_data.git">JohnAtMill</a></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="folds-for-multivariate-adaptive-regression-splines.html#cb41-1" aria-hidden="true" tabindex="-1"></a>Average.AUC.mars<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of AUC is&quot;</span>, <span class="fu">mean</span>(err_vec1)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of AUC is 0.932625188403815&quot;</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="folds-for-multivariate-adaptive-regression-splines.html#cb43-1" aria-hidden="true" tabindex="-1"></a>Average.Misclas.mars<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of Missclassification is &quot;</span>, <span class="fu">mean</span>(missclass.rate)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of Missclassification is  0.0417628911488818&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="folds-for-multivariate-adaptive-regression-splines.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.mars)</span></code></pre></div>
+<pre><code>## Call: earth(formula=factor(Category)~., data=train.v,
+##             glm=list(family=binomial(link=&quot;logit&quot;)), degree=3)
+## 
+## GLM coefficients
+##                                                   1
+## (Intercept)                               6.6029615
+## h(16.9-ALT)                               0.5295046
+## h(80-AST)                                -0.1431084
+## h(CREA-64)                                0.0049164
+## h(146.3-GGT)                             -0.0399998
+## h(65.3-ALP) * h(ALT-16.9)                 0.0107686
+## h(ALP-65.3) * h(ALT-16.9)                 0.0016820
+## h(ALT-16.9) * h(14-BIL)                  -0.0215858
+## h(ALT-16.9) * h(PROT-78.5)                0.0234928
+## h(ALT-16.9) * h(78.5-PROT)               -0.0140240
+## h(46.9-AST) * h(146.3-GGT)               -0.0000683
+## h(65.3-ALP) * h(ALT-16.9) * h(CREA-63)   -0.0002287
+## h(65.3-ALP) * h(ALT-16.9) * h(63-CREA)   -0.0013877
+## h(43.7-ALP) * h(80-AST) * h(PROT-70.4)    0.0027456
+## h(15.8-ALT) * h(46.9-AST) * h(146.3-GGT) -0.0003098
+## h(ALT-15.8) * h(46.9-AST) * h(146.3-GGT)  0.0000040
+## 
+## GLM (family binomial, link logit):
+##  nulldev  df       dev  df   devratio     AIC iters converged
+##   341.02 476   26.4952 461      0.922    58.5    10         1
+## 
+## Earth selected 16 of 25 terms, and 7 of 12 predictors
+## Termination condition: Reached nk 25
+## Importance: AST, ALT, ALP, PROT, BIL, GGT, CREA, Age-unused, Sexm-unused, ...
+## Number of terms at each degree of interaction: 1 4 6 5
+## Earth GCV 0.01641433    RSS 6.616739    GRSq 0.8397633    RSq 0.8640162</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="folds-for-multivariate-adaptive-regression-splines.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vip</span>(fit.mars, <span class="at">num_features =</span> <span class="dv">24</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;GCV&quot;</span>)</span></code></pre></div>
+<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>From the variable importance plot we can see that,AST,ALT,PROT in descending order are important variables by MARS.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fitting-random-forest.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="folds-for-artificial-neural-networks-1-layer.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": "none",
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true,
+"toolbar": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+</body>
+
+</html>

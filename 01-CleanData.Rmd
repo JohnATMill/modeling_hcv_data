@@ -1,9 +1,11 @@
-# Data Cleaning {#data}
+# Data {#data}
 
-As mentioned in \ref(intro)
+The data set used for modelling can be found download from [UC Irvine](https://archive.ics.uci.edu/dataset/571/hcv+data). The data set contains laboratory values of blood donors and Hepatitis C patients and demographic values like age. As mentioned, the focus is incorporating data science project and reports in an efficient format.
+
 
 ```{r, include=FALSE}
 #Loading Packages 
+
 library(magrittr)
 library(tidyverse)
 library(dplyr)
@@ -15,12 +17,14 @@ library(skimr)
 
 
 ```{r}
-#Importing
+#Import Data
 
 data<-read.csv("data/hcvdat0.csv",header = T,colClasses=c("NULL", rep(NA, 13))) 
-#glimpse(data)
+
+#A quick summary - checking number of categorical and numeric variables
 skimr::skim(data)[1:3]
 ```
+
 
 
 
@@ -32,15 +36,17 @@ data$Category<-ifelse(data$Category=="0=Blood Donor" | data$Category=="0s=suspec
 
 
 
-Obtain the frequency distribution of Category. Observe  Imbalanced classification problem
 ```{r}
-table(data$Category)    #Frequency distribution of Category
+#Frequency distribution of Category
+
+table(data$Category)    
 ```
-We can see that,we have no missing values for the variable "Category".Also,the frequency distribution shows "0"=570  and "1"=75.This shows an imbalanced classification problem since the frequency of response (Category) is skewed towards "0".
+
+Frequency distribution shows "0"=570  and "1"=75.This shows an imbalanced classification problem since the frequency of response (Category) is skewed towards "0". Observe Imbalanced classification problem. Methods for handling imbalanced classification problems such as undersampling and oversampling can be considered, however, that is beyond the scope or goal of this project.
 
 
 
-(c)  Inspect for the missing values in the predictors.  Impute the missing values if any. Note that you are not supposed to use information in the target variable when performing the imputation.
+## Missing values and MICE Imputation.
 
 ```{r}
 colMeans(is.na(data))
@@ -48,7 +54,7 @@ colMeans(is.na(data))
 This shows the proportion of missing values in each column or varibale. We can observe that,ALP has the highest missing values.
 
 ```{r}
-#Checking the proportion of missing values in the data
+#visualizing missing values
 gg_miss_upset(data)
 ```
 
@@ -68,9 +74,10 @@ Mice Imputation for missing values.
 
 
 
-(d)  Use model.matrix()to change the data matrix into numeric.  Dummy variables will be automatically created for each categorical predictor.
+
 
 ```{r}
+#Model matric to tansform the data to numeric
 data<-model.matrix(~.,data = data)
 data<-data[,-1]
 ```

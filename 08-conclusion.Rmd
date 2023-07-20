@@ -1,20 +1,21 @@
 
-# TABLE OF AVERAGE  AUC FOR V FOLD OF EACH CLASSIFIER
+# Summary
+
+As already mentioned, the focus of this project was to illustrate a basic example of how data science projects can be incorporated in bookdown - making it efficient for readers usability. Authors can make interactive plot and allow users to change values of the models included in this poject( Check:[R shiny](https://shiny.posit.co/)).  Code to the models can be found on Github. 
 
 ```{r}
 #cbind(AUC.ANN1,AUC.ANN2,AUC.LOGIS,AUC.mars,AUC.RF,AUC.SVM1,AUC.SVM2)
 ```
 
 
-**Comment Based on Average Average AUC of the V folds** 
 
-From the above output,we can observe that,the average AUC of the V-folds for Support vector machine 2 is the highest thus a modeler might consider using his model for the classification problem. Though it gave the highest,AUC, we observe that the SVM takes a long time to train the data.In addition,we observe that,choosing an appropriate kernel for the SVM is quite difficult.Also,we know that,
+<!-- From the above output,we can observe that,the average AUC of the V-folds for Support vector machine 2 is the highest thus a modeler might consider using his model for the classification problem. Though it gave the highest,AUC, we observe that the SVM takes a long time to train the data.In addition,we observe that,choosing an appropriate kernel for the SVM is quite difficult.Also,we know that, -->
 
-Aside THE SVM2,we can observe that,the Random forest performed well among the other classifiers.Since no feature scaling is required for random forest ,it becomes appropriate to consider if a modeler is tight with time.This makes is less time consuming.Also,one can observe that,the random  forest is insensitive to outliers.
+<!-- Aside THE SVM2,we can observe that,the Random forest performed well among the other classifiers.Since no feature scaling is required for random forest ,it becomes appropriate to consider if a modeler is tight with time.This makes is less time consuming.Also,one can observe that,the random  forest is insensitive to outliers. -->
 
-After the random forest,we can observe that,averagely the AUC of ANN2,Logistic and ANN1.
+<!-- After the random forest,we can observe that,averagely the AUC of ANN2,Logistic and ANN1. -->
 
-We can also observe that,MARs performed badly among all the classifiers though 92% average AUC for all the folds is good.
+<!-- We can also observe that,MARs performed badly among all the classifiers though 92% average AUC for all the folds is good. -->
 
 
 
@@ -22,12 +23,6 @@ We can also observe that,MARs performed badly among all the classifiers though 9
 ```{r}
 #cbind(miss.rate.RF,Miss.rate.ANN1,Miss.rate.ANN2,Miss.rate.SVM1,Miss.rate.SVM2,miss.rate.LOIS)
 ```
-
-
-**comment Based on Misclassification Rate**
-
-We can observe that, SVM1 has the highest misclassification rate on average over the V folds.Thus the model wil be wrong most of the time than the other classifiers.We can observe that,the Random Forest had the lower Misclassification rate on average compared tothe other classifiers.Though the SVM produced the highest AUC rate on average,it is likely to make wrong prediction as compared to the Random forest.In this case, the Random Forest can be considered better among all the classifiers.
-
 
 
 

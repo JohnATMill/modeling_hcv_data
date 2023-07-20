@@ -20,7 +20,7 @@
   
   
 
-<meta name="author" content="John Koomson, FSA, MAAA" />
+<meta name="author" content="John Koomson" />
 
 
 
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="logistic-regression.html"/>
-<link rel="next" href="v-folds-for-multivariate-adaptive-regression-splines.html"/>
+<link rel="prev" href="regularized-logistic-regression.html"/>
+<link rel="next" href="folds-for-multivariate-adaptive-regression-splines.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -139,24 +146,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modeling HCV Data</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Models</a></li>
-<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a></li>
-<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview and Bookdown</a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#findings"><i class="fa fa-check"></i><b>3.1</b> FINDINGS</a></li>
+<li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#missing-values-and-mice-imputation."><i class="fa fa-check"></i><b>2.1</b> Missing values and MICE Imputation.</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> LOGISTIC REGRESSION</a>
+<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Basic Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#data-partitioning"><i class="fa fa-check"></i><b>4.1</b> Data Partitioning</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
+<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#density-plot"><i class="fa fa-check"></i><b>3.1</b> Density Plot</a></li>
+<li class="chapter" data-level="3.2" data-path="dataanalysis.html"><a href="dataanalysis.html#interactive-plot-among-the-columns"><i class="fa fa-check"></i><b>3.2</b> Interactive Plot Among the columns</a></li>
+<li class="chapter" data-level="3.3" data-path="dataanalysis.html"><a href="dataanalysis.html#outlier-detection"><i class="fa fa-check"></i><b>3.3</b> Outlier Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html"><i class="fa fa-check"></i><b>4</b> REGULARIZED LOGISTIC REGRESSION</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#data-partition"><i class="fa fa-check"></i><b>4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="4.2" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="fitting-random-forest.html"><a href="fitting-random-forest.html"><i class="fa fa-check"></i><b>5</b> FITTING RANDOM FOREST</a></li>
-<li class="chapter" data-level="6" data-path="v-folds-for-multivariate-adaptive-regression-splines.html"><a href="v-folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> V-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
-<li class="chapter" data-level="7" data-path="v-folds-for-artificial-neural-networks-1.html"><a href="v-folds-for-artificial-neural-networks-1.html"><i class="fa fa-check"></i><b>7</b> V-Folds for Artificial Neural Networks 1</a></li>
-<li class="chapter" data-level="8" data-path="artificial-neural-network-2v-folds-for-the-second-ann.html"><a href="artificial-neural-network-2v-folds-for-the-second-ann.html"><i class="fa fa-check"></i><b>8</b> ARTIFICIAL NEURAL NETWORK 2(V-FOLDS FOR THE SECOND ANN)</a></li>
-<li class="chapter" data-level="9" data-path="v--folds-for-support-vector-machine-1.html"><a href="v--folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>9</b> V- folds for SUPPORT VECTOR MACHINE 1</a></li>
-<li class="chapter" data-level="10" data-path="table-of-average-auc-for-v-fold-of-each-classifier.html"><a href="table-of-average-auc-for-v-fold-of-each-classifier.html"><i class="fa fa-check"></i><b>10</b> TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER</a></li>
+<li class="chapter" data-level="6" data-path="folds-for-multivariate-adaptive-regression-splines.html"><a href="folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
+<li class="chapter" data-level="7" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html"><i class="fa fa-check"></i><b>7</b> 5-Folds for Artificial Neural Networks (1 LAYER)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html#artificial-neural-network-2-2-layers"><i class="fa fa-check"></i><b>7.1</b> ARTIFICIAL NEURAL NETWORK 2 (2 layers)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="folds-for-support-vector-machine-1.html"><a href="folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>8</b> 5- folds for SUPPORT VECTOR MACHINE 1</a></li>
+<li class="chapter" data-level="9" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>9</b> Summary</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/JohnATMill/modeling_hcv_data.git" target="blank">Github Code</a></li>
 
@@ -179,146 +193,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="fitting-random-forest" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> FITTING RANDOM FOREST<a href="fitting-random-forest.html#fitting-random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="fitting-random-forest.html#cb35-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;data/CleanedData.csv&quot;</span>,<span class="at">header =</span> T,<span class="at">colClasses=</span><span class="fu">c</span>(<span class="st">&quot;NULL&quot;</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">13</span>)))</span>
-<span id="cb35-2"><a href="fitting-random-forest.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="fitting-random-forest.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">120</span>)</span>
-<span id="cb35-4"><a href="fitting-random-forest.html#cb35-4" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb35-5"><a href="fitting-random-forest.html#cb35-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">NROW</span>(data); n0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>); n1 <span class="ot">&lt;-</span> n<span class="sc">-</span>n0;</span>
-<span id="cb35-6"><a href="fitting-random-forest.html#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="fitting-random-forest.html#cb35-7" aria-hidden="true" tabindex="-1"></a>missclass.rate <span class="ot">=</span> <span class="fu">c</span>()</span>
-<span id="cb35-8"><a href="fitting-random-forest.html#cb35-8" aria-hidden="true" tabindex="-1"></a>err_vec1<span class="ot">=</span> <span class="fu">c</span>()</span>
-<span id="cb35-9"><a href="fitting-random-forest.html#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="fitting-random-forest.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>V) {</span>
-<span id="cb35-11"><a href="fitting-random-forest.html#cb35-11" aria-hidden="true" tabindex="-1"></a>  err_vec1<span class="ot">=</span><span class="fu">c</span>(err_vec1, v)</span>
-<span id="cb35-12"><a href="fitting-random-forest.html#cb35-12" aria-hidden="true" tabindex="-1"></a>  missclass.rate<span class="ot">=</span><span class="fu">c</span>(missclass.rate, v)</span>
-<span id="cb35-13"><a href="fitting-random-forest.html#cb35-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb35-14"><a href="fitting-random-forest.html#cb35-14" aria-hidden="true" tabindex="-1"></a>id.fold <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
-<span id="cb35-15"><a href="fitting-random-forest.html#cb35-15" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n0, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb35-16"><a href="fitting-random-forest.html#cb35-16" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n1, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb35-17"><a href="fitting-random-forest.html#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>V) {</span>
-<span id="cb35-18"><a href="fitting-random-forest.html#cb35-18" aria-hidden="true" tabindex="-1"></a>train.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">!=</span>v, ]; test.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">==</span>v, ];</span>
-<span id="cb35-19"><a href="fitting-random-forest.html#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-20"><a href="fitting-random-forest.html#cb35-20" aria-hidden="true" tabindex="-1"></a>mtry <span class="ot">=</span> <span class="fu">tuneRF</span>(train.v[ , <span class="sc">-</span><span class="dv">1</span>], <span class="fu">factor</span>(train.v<span class="sc">$</span>Category), <span class="at">ntreeTry=</span><span class="dv">200</span>,</span>
-<span id="cb35-21"><a href="fitting-random-forest.html#cb35-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">stepFactor=</span><span class="dv">2</span>, <span class="at">improve=</span><span class="fl">0.05</span>, <span class="at">trace=</span><span class="cn">TRUE</span>, </span>
-<span id="cb35-22"><a href="fitting-random-forest.html#cb35-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">dobest=</span><span class="cn">FALSE</span>, <span class="at">printFlag =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb35-23"><a href="fitting-random-forest.html#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-24"><a href="fitting-random-forest.html#cb35-24" aria-hidden="true" tabindex="-1"></a>best.mtry <span class="ot">=</span> mtry[mtry[, <span class="dv">2</span>] <span class="sc">==</span> <span class="fu">min</span>(mtry[, <span class="dv">2</span>]), <span class="dv">1</span>]</span>
-<span id="cb35-25"><a href="fitting-random-forest.html#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-26"><a href="fitting-random-forest.html#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Fitting model for Random Forest.</span></span>
-<span id="cb35-27"><a href="fitting-random-forest.html#cb35-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-28"><a href="fitting-random-forest.html#cb35-28" aria-hidden="true" tabindex="-1"></a>fit.rf <span class="ot">=</span> <span class="fu">randomForest</span>(<span class="fu">factor</span>(Category) <span class="sc">~</span>., <span class="at">mtry=</span>best.mtry,</span>
-<span id="cb35-29"><a href="fitting-random-forest.html#cb35-29" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data=</span>train.v, <span class="at">importance=</span><span class="cn">TRUE</span>, <span class="at">proximity=</span><span class="cn">TRUE</span>,</span>
-<span id="cb35-30"><a href="fitting-random-forest.html#cb35-30" aria-hidden="true" tabindex="-1"></a>                      <span class="at">ntree=</span><span class="dv">500</span>)</span>
-<span id="cb35-31"><a href="fitting-random-forest.html#cb35-31" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">=</span> test.v<span class="sc">$</span>Category</span>
-<span id="cb35-32"><a href="fitting-random-forest.html#cb35-32" aria-hidden="true" tabindex="-1"></a>pred.rf <span class="ot">=</span> <span class="fu">predict</span>(fit.rf, <span class="at">newdata=</span>test.v[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">type=</span><span class="st">&quot;prob&quot;</span>)[, <span class="dv">2</span>]</span>
-<span id="cb35-33"><a href="fitting-random-forest.html#cb35-33" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">auc</span>(yobs, pred.rf)</span>
-<span id="cb35-34"><a href="fitting-random-forest.html#cb35-34" aria-hidden="true" tabindex="-1"></a>err_vec1[v] <span class="ot">=</span> mod</span>
-<span id="cb35-35"><a href="fitting-random-forest.html#cb35-35" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;AUC for fold&quot;</span>, v, <span class="st">&quot;:&quot;</span>, err_vec1[v]))</span>
-<span id="cb35-36"><a href="fitting-random-forest.html#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-37"><a href="fitting-random-forest.html#cb35-37" aria-hidden="true" tabindex="-1"></a>pred.rate <span class="ot">=</span> <span class="fu">ifelse</span>(pred.rf <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb35-38"><a href="fitting-random-forest.html#cb35-38" aria-hidden="true" tabindex="-1"></a>miss.rate <span class="ot">&lt;-</span> <span class="fu">mean</span>(yobs <span class="sc">!=</span> pred.rate)</span>
-<span id="cb35-39"><a href="fitting-random-forest.html#cb35-39" aria-hidden="true" tabindex="-1"></a>missclass.rate[v] <span class="ot">=</span> miss.rate</span>
-<span id="cb35-40"><a href="fitting-random-forest.html#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Missclassification rate for fold&quot;</span>, v,</span>
-<span id="cb35-41"><a href="fitting-random-forest.html#cb35-41" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;:&quot;</span>,missclass.rate[v]))</span>
-<span id="cb35-42"><a href="fitting-random-forest.html#cb35-42" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## mtry = 3  OOB error = 2.46% 
-## Searching left ...
-## mtry = 2     OOB error = 2.46% 
-## 0 0.05 
-## Searching right ...
-## mtry = 6     OOB error = 2.05% 
-## 0.1666667 0.05 
-## mtry = 12    OOB error = 3.07% 
-## -0.5 0.05</code></pre>
-<pre><code>## Setting levels: control = 0, case = 1</code></pre>
-<pre><code>## Setting direction: controls &lt; cases</code></pre>
-<pre><code>## [1] &quot;AUC for fold 1 : 0.945535714285714&quot;
-## [1] &quot;Missclassification rate for fold 1 : 0.0708661417322835&quot;
-## mtry = 3  OOB error = 2.46% 
-## Searching left ...
-## mtry = 2     OOB error = 2.05% 
-## 0.1666667 0.05 
-## mtry = 1     OOB error = 3.49% 
-## -0.7 0.05 
-## Searching right ...
-## mtry = 6     OOB error = 2.46% 
-## -0.2 0.05</code></pre>
-<pre><code>## Setting levels: control = 0, case = 1
-## Setting direction: controls &lt; cases</code></pre>
-<pre><code>## [1] &quot;AUC for fold 2 : 0.993980582524272&quot;
-## [1] &quot;Missclassification rate for fold 2 : 0.046875&quot;
-## mtry = 3  OOB error = 3.05% 
-## Searching left ...
-## mtry = 2     OOB error = 2.85% 
-## 0.06666667 0.05 
-## mtry = 1     OOB error = 4.28% 
-## -0.5 0.05 
-## Searching right ...
-## mtry = 6     OOB error = 3.05% 
-## -0.07142857 0.05</code></pre>
-<pre><code>## Setting levels: control = 0, case = 1
-## Setting direction: controls &lt; cases</code></pre>
-<pre><code>## [1] &quot;AUC for fold 3 : 0.999033816425121&quot;
-## [1] &quot;Missclassification rate for fold 3 : 0.00806451612903226&quot;
-## mtry = 3  OOB error = 3.11% 
-## Searching left ...
-## mtry = 2     OOB error = 3.73% 
-## -0.2 0.05 
-## Searching right ...
-## mtry = 6     OOB error = 3.94% 
-## -0.2666667 0.05</code></pre>
-<pre><code>## Setting levels: control = 0, case = 1
-## Setting direction: controls &lt; cases</code></pre>
-<pre><code>## [1] &quot;AUC for fold 4 : 1&quot;
-## [1] &quot;Missclassification rate for fold 4 : 0&quot;
-## mtry = 3  OOB error = 3.12% 
-## Searching left ...
-## mtry = 2     OOB error = 2.73% 
-## 0.125 0.05 
-## mtry = 1     OOB error = 4.1% 
-## -0.5 0.05 
-## Searching right ...
-## mtry = 6     OOB error = 3.71% 
-## -0.3571429 0.05</code></pre>
-<pre><code>## Setting levels: control = 0, case = 1
-## Setting direction: controls &lt; cases</code></pre>
-<pre><code>## [1] &quot;AUC for fold 5 : 0.998924731182796&quot;
-## [1] &quot;Missclassification rate for fold 5 : 0.00970873786407767&quot;</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="fitting-random-forest.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(fit.rf)    <span class="do">##Variance Importance Plot</span></span></code></pre></div>
-<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="fitting-random-forest.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(fit.rf)  </span></code></pre></div>
-<pre><code>##              0         1 MeanDecreaseAccuracy MeanDecreaseGini
-## Age   8.040746  1.911989             7.407360        3.9726533
-## Sex   2.615616  1.347251             2.853548        0.4915929
-## ALB   6.412576  3.703261             7.157225        4.1808699
-## ALP  20.549509 21.329873            24.419384       15.3071124
-## ALT  21.679658 15.655653            22.622220       15.6858380
-## AST  22.524230 31.338243            30.769015       28.5160763
-## BIL   8.339446 15.841815            16.775333        8.7020686
-## CHE  10.741334  5.709985            11.470642        8.4026776
-## CHOL  7.256905  5.620373             8.995091        5.8567032
-## CREA  8.207112  8.263927            10.096894        5.0378375
-## GGT  12.111353 16.399709            19.254100       11.9141430
-## PROT  9.846939  3.133041            10.324115        5.2175627</code></pre>
-<p><strong>comment</strong></p>
+<p>See Github for code <a href="https://github.com/JohnATMill/modeling_hcv_data.git">JohnAtMill</a></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="fitting-random-forest.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(fit.rf)    <span class="do">##Variable Importance Plot</span></span></code></pre></div>
+<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fitting-random-forest.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(fit.rf)  </span></code></pre></div>
+<pre><code>##              0          1 MeanDecreaseAccuracy MeanDecreaseGini
+## Age   6.628537  2.6221908             6.396106        4.0651846
+## Sex   2.126077  0.1640683             2.113024        0.5217098
+## ALB   4.050238  4.3900099             5.903508        4.5770239
+## ALP  17.049621 20.0925066            21.759320       14.2668463
+## ALT  22.306967 15.0344834            22.939803       16.8378335
+## AST  23.730627 31.1180542            30.953254       28.3869541
+## BIL   6.958578 17.0192625            16.788004        8.9267996
+## CHE  11.300715  6.0612761            12.054497        7.6879541
+## CHOL  5.891190  5.7992778             8.245351        6.1280041
+## CREA  9.771611  4.3855076            10.316794        4.9983135
+## GGT  12.588276 16.2410833            18.945824       11.3569600
+## PROT 11.744644  0.9581044            10.933361        5.7894273</code></pre>
 <p>The importance ranking shows that.AST,ALP,ALT are the important variables by random forest respectively.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="fitting-random-forest.html#cb51-1" aria-hidden="true" tabindex="-1"></a>Average.Auc.rf<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of AUC is &quot;</span>, <span class="fu">mean</span>(err_vec1)))</span></code></pre></div>
-<pre><code>## [1] &quot;Average of AUC is  0.98749496888358&quot;</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="fitting-random-forest.html#cb53-1" aria-hidden="true" tabindex="-1"></a>Average.mis.rf<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of Miss is &quot;</span>, <span class="fu">mean</span>(missclass.rate)))</span></code></pre></div>
-<pre><code>## [1] &quot;Average of Miss is  0.0271028791450787&quot;</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="fitting-random-forest.html#cb55-1" aria-hidden="true" tabindex="-1"></a>AUC.RF<span class="ot">&lt;-</span><span class="fu">mean</span>(err_vec1)</span>
-<span id="cb55-2"><a href="fitting-random-forest.html#cb55-2" aria-hidden="true" tabindex="-1"></a>miss.rate.RF<span class="ot">&lt;-</span><span class="fu">mean</span>(missclass.rate)</span></code></pre></div>
-<p><strong>comment</strong></p>
-<p>The average AUC of the v folds is 0.98 which shows a good classification by the random forest leading to a low misclassification is 0.02.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="fitting-random-forest.html#cb36-1" aria-hidden="true" tabindex="-1"></a>Average.Auc.rf<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of AUC is &quot;</span>, <span class="fu">mean</span>(err_vec1)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of AUC is  0.984390558461209&quot;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="fitting-random-forest.html#cb38-1" aria-hidden="true" tabindex="-1"></a>Average.mis.rf<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of Miss is &quot;</span>, <span class="fu">mean</span>(missclass.rate)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of Miss is  0.0300734884932523&quot;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="fitting-random-forest.html#cb40-1" aria-hidden="true" tabindex="-1"></a>AUC.RF<span class="ot">&lt;-</span><span class="fu">mean</span>(err_vec1)</span>
+<span id="cb40-2"><a href="fitting-random-forest.html#cb40-2" aria-hidden="true" tabindex="-1"></a>miss.rate.RF<span class="ot">&lt;-</span><span class="fu">mean</span>(missclass.rate)</span></code></pre></div>
+<p><strong>Note</strong>
+<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Similar with logistic model</p>
 
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>RandomSorest AUC: 0.98, MisClassification Rate: 0.027<a href="fitting-random-forest.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="logistic-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="v-folds-for-multivariate-adaptive-regression-splines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regularized-logistic-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="folds-for-multivariate-adaptive-regression-splines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

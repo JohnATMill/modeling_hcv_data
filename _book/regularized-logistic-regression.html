@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 REGULARIZED LOGISTIC REGRESSION | Modeling HCV Data - Classification Models</title>
+  <meta name="description" content="4 REGULARIZED LOGISTIC REGRESSION | Modeling HCV Data - Classification Models" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 REGULARIZED LOGISTIC REGRESSION | Modeling HCV Data - Classification Models" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 REGULARIZED LOGISTIC REGRESSION | Modeling HCV Data - Classification Models" />
+  
+  
+  
+
+<meta name="author" content="John Koomson" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dataanalysis.html"/>
+<link rel="next" href="fitting-random-forest.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modeling HCV Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview and Bookdown</a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#missing-values-and-mice-imputation."><i class="fa fa-check"></i><b>2.1</b> Missing values and MICE Imputation.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Basic Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#density-plot"><i class="fa fa-check"></i><b>3.1</b> Density Plot</a></li>
+<li class="chapter" data-level="3.2" data-path="dataanalysis.html"><a href="dataanalysis.html#interactive-plot-among-the-columns"><i class="fa fa-check"></i><b>3.2</b> Interactive Plot Among the columns</a></li>
+<li class="chapter" data-level="3.3" data-path="dataanalysis.html"><a href="dataanalysis.html#outlier-detection"><i class="fa fa-check"></i><b>3.3</b> Outlier Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html"><i class="fa fa-check"></i><b>4</b> REGULARIZED LOGISTIC REGRESSION</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#data-partition"><i class="fa fa-check"></i><b>4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="4.2" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fitting-random-forest.html"><a href="fitting-random-forest.html"><i class="fa fa-check"></i><b>5</b> FITTING RANDOM FOREST</a></li>
+<li class="chapter" data-level="6" data-path="folds-for-multivariate-adaptive-regression-splines.html"><a href="folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
+<li class="chapter" data-level="7" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html"><i class="fa fa-check"></i><b>7</b> 5-Folds for Artificial Neural Networks (1 LAYER)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html#artificial-neural-network-2-2-layers"><i class="fa fa-check"></i><b>7.1</b> ARTIFICIAL NEURAL NETWORK 2 (2 layers)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="folds-for-support-vector-machine-1.html"><a href="folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>8</b> 5- folds for SUPPORT VECTOR MACHINE 1</a></li>
+<li class="chapter" data-level="9" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>9</b> Summary</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/JohnATMill/modeling_hcv_data.git" target="blank">Github Code</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modeling HCV Data - Classification Models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regularized-logistic-regression" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> REGULARIZED LOGISTIC REGRESSION<a href="regularized-logistic-regression.html#regularized-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data-partition" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data Partition<a href="regularized-logistic-regression.html#data-partition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="regularized-logistic-regression.html#cb16-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;data/CleanedData.csv&quot;</span>,<span class="at">header =</span> T,<span class="at">colClasses=</span><span class="fu">c</span>(<span class="st">&quot;NULL&quot;</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">13</span>))) </span>
+<span id="cb16-2"><a href="regularized-logistic-regression.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="regularized-logistic-regression.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">125</span>)</span>
+<span id="cb16-4"><a href="regularized-logistic-regression.html#cb16-4" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb16-5"><a href="regularized-logistic-regression.html#cb16-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">NROW</span>(data); n0 <span class="ot">=</span> <span class="fu">sum</span>(data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>); n1 <span class="ot">=</span> n<span class="sc">-</span>n0;</span>
+<span id="cb16-6"><a href="regularized-logistic-regression.html#cb16-6" aria-hidden="true" tabindex="-1"></a>id.fold <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb16-7"><a href="regularized-logistic-regression.html#cb16-7" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n0, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb16-8"><a href="regularized-logistic-regression.html#cb16-8" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n1, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb16-9"><a href="regularized-logistic-regression.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>V) {</span>
+<span id="cb16-10"><a href="regularized-logistic-regression.html#cb16-10" aria-hidden="true" tabindex="-1"></a>train.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">!=</span>v, ]; test.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">==</span>v, ]</span>
+<span id="cb16-11"><a href="regularized-logistic-regression.html#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="regularized-logistic-regression.html#cb16-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-13"><a href="regularized-logistic-regression.html#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="regularized-logistic-regression.html#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train.v)</span></code></pre></div>
+<pre><code>## [1] 492  13</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="regularized-logistic-regression.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test.v)</span></code></pre></div>
+<pre><code>## [1] 123  13</code></pre>
+</div>
+<div id="fold-cross-validation---logistic-regression" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 5-Fold Cross Validation - Logistic Regression<a href="regularized-logistic-regression.html#fold-cross-validation---logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="regularized-logistic-regression.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span>
+<span id="cb20-2"><a href="regularized-logistic-regression.html#cb20-2" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb20-3"><a href="regularized-logistic-regression.html#cb20-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">NROW</span>(data); n0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>); n1 <span class="ot">&lt;-</span> n<span class="sc">-</span>n0;</span>
+<span id="cb20-4"><a href="regularized-logistic-regression.html#cb20-4" aria-hidden="true" tabindex="-1"></a>missclass.rate <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb20-5"><a href="regularized-logistic-regression.html#cb20-5" aria-hidden="true" tabindex="-1"></a>err_vec1<span class="ot">=</span><span class="fu">c</span>()</span>
+<span id="cb20-6"><a href="regularized-logistic-regression.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>V) {</span>
+<span id="cb20-7"><a href="regularized-logistic-regression.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  err_vec1<span class="ot">=</span><span class="fu">c</span>(err_vec1, v)</span>
+<span id="cb20-8"><a href="regularized-logistic-regression.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  missclass.rate<span class="ot">=</span><span class="fu">c</span>(missclass.rate, v)</span>
+<span id="cb20-9"><a href="regularized-logistic-regression.html#cb20-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-10"><a href="regularized-logistic-regression.html#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="regularized-logistic-regression.html#cb20-11" aria-hidden="true" tabindex="-1"></a>id.fold <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb20-12"><a href="regularized-logistic-regression.html#cb20-12" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n0, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb20-13"><a href="regularized-logistic-regression.html#cb20-13" aria-hidden="true" tabindex="-1"></a>id.fold[data<span class="sc">$</span>Category<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span>V, <span class="at">size=</span>n1, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb20-14"><a href="regularized-logistic-regression.html#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="regularized-logistic-regression.html#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="regularized-logistic-regression.html#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="regularized-logistic-regression.html#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Model, Error Rate, Prediction, AUC</span></span>
+<span id="cb20-18"><a href="regularized-logistic-regression.html#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>V) {</span>
+<span id="cb20-19"><a href="regularized-logistic-regression.html#cb20-19" aria-hidden="true" tabindex="-1"></a>train.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">!=</span>v, ]; test.v <span class="ot">&lt;-</span> data[id.fold<span class="sc">==</span>v, ];</span>
+<span id="cb20-20"><a href="regularized-logistic-regression.html#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="regularized-logistic-regression.html#cb20-21" aria-hidden="true" tabindex="-1"></a>formula0 <span class="ot">=</span> Category<span class="sc">~</span>.</span>
+<span id="cb20-22"><a href="regularized-logistic-regression.html#cb20-22" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">model.matrix</span> (<span class="fu">as.formula</span>(formula0), <span class="at">data =</span> train.v)</span>
+<span id="cb20-23"><a href="regularized-logistic-regression.html#cb20-23" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">factor</span>(train.v<span class="sc">$</span>Category)</span>
+<span id="cb20-24"><a href="regularized-logistic-regression.html#cb20-24" aria-hidden="true" tabindex="-1"></a>fit.lasso <span class="ot">=</span> <span class="fu">glmnet</span>(<span class="at">x=</span>X, <span class="at">y=</span>y, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">alpha=</span><span class="dv">1</span>, </span>
+<span id="cb20-25"><a href="regularized-logistic-regression.html#cb20-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">lambda.min =</span> <span class="fl">1e-4</span>, <span class="at">nlambda =</span> <span class="dv">100</span>, <span class="at">standardize=</span>T, <span class="at">thresh =</span> </span>
+<span id="cb20-26"><a href="regularized-logistic-regression.html#cb20-26" aria-hidden="true" tabindex="-1"></a>                      <span class="fl">1e-07</span>, <span class="at">maxit=</span><span class="dv">1000</span>)</span>
+<span id="cb20-27"><a href="regularized-logistic-regression.html#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="regularized-logistic-regression.html#cb20-28" aria-hidden="true" tabindex="-1"></a>CV <span class="ot">=</span> <span class="fu">cv.glmnet</span>(<span class="at">x=</span>X, <span class="at">y=</span>y, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb20-29"><a href="regularized-logistic-regression.html#cb20-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">lambda.min =</span> <span class="fl">1e-4</span>, <span class="at">nlambda =</span> <span class="dv">200</span>, <span class="at">standardize =</span> T,</span>
+<span id="cb20-30"><a href="regularized-logistic-regression.html#cb20-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">thresh =</span> <span class="fl">1e-07</span>, <span class="at">maxit=</span><span class="dv">1000</span>)</span>
+<span id="cb20-31"><a href="regularized-logistic-regression.html#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="regularized-logistic-regression.html#cb20-32" aria-hidden="true" tabindex="-1"></a>best.lambda <span class="ot">=</span> CV<span class="sc">$</span>lambda<span class="fl">.1</span>se; <span class="co">#best.lambda  </span></span>
+<span id="cb20-33"><a href="regularized-logistic-regression.html#cb20-33" aria-hidden="true" tabindex="-1"></a>fit.best <span class="ot">=</span> <span class="fu">glmnet</span>(<span class="at">x=</span>X, <span class="at">y=</span>y, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb20-34"><a href="regularized-logistic-regression.html#cb20-34" aria-hidden="true" tabindex="-1"></a>                  <span class="at">lambda=</span>best.lambda, <span class="at">standardize =</span> T, </span>
+<span id="cb20-35"><a href="regularized-logistic-regression.html#cb20-35" aria-hidden="true" tabindex="-1"></a>                  <span class="at">thresh =</span> <span class="fl">1e-07</span>, <span class="at">maxit=</span><span class="dv">1000</span>)</span>
+<span id="cb20-36"><a href="regularized-logistic-regression.html#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="regularized-logistic-regression.html#cb20-37" aria-hidden="true" tabindex="-1"></a>formula0 <span class="ot">=</span> Category <span class="sc">~</span>. </span>
+<span id="cb20-38"><a href="regularized-logistic-regression.html#cb20-38" aria-hidden="true" tabindex="-1"></a>fit.final <span class="ot">=</span> <span class="fu">glm</span>(formula0, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> train.v)</span>
+<span id="cb20-39"><a href="regularized-logistic-regression.html#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-40"><a href="regularized-logistic-regression.html#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="co">#Observed response</span></span>
+<span id="cb20-41"><a href="regularized-logistic-regression.html#cb20-41" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">=</span> test.v<span class="sc">$</span>Category</span>
+<span id="cb20-42"><a href="regularized-logistic-regression.html#cb20-42" aria-hidden="true" tabindex="-1"></a>X.test <span class="ot">=</span> test.v[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb20-43"><a href="regularized-logistic-regression.html#cb20-43" aria-hidden="true" tabindex="-1"></a>pred.glm <span class="ot">=</span> <span class="fu">predict</span>(fit.final, <span class="at">newdata =</span> X.test, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb20-44"><a href="regularized-logistic-regression.html#cb20-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-45"><a href="regularized-logistic-regression.html#cb20-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-46"><a href="regularized-logistic-regression.html#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="co">#AUC</span></span>
+<span id="cb20-47"><a href="regularized-logistic-regression.html#cb20-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-48"><a href="regularized-logistic-regression.html#cb20-48" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">roc.area</span>(yobs, pred.glm)<span class="sc">$</span>A</span>
+<span id="cb20-49"><a href="regularized-logistic-regression.html#cb20-49" aria-hidden="true" tabindex="-1"></a>err_vec1[v] <span class="ot">=</span> mod</span>
+<span id="cb20-50"><a href="regularized-logistic-regression.html#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;AUC for fold&quot;</span>, v, <span class="st">&quot;:&quot;</span>, err_vec1[v]))</span>
+<span id="cb20-51"><a href="regularized-logistic-regression.html#cb20-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-52"><a href="regularized-logistic-regression.html#cb20-52" aria-hidden="true" tabindex="-1"></a>pred.rate <span class="ot">=</span> <span class="fu">ifelse</span>(pred.glm <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb20-53"><a href="regularized-logistic-regression.html#cb20-53" aria-hidden="true" tabindex="-1"></a>miss.rate <span class="ot">&lt;-</span> <span class="fu">mean</span>(yobs <span class="sc">!=</span> pred.rate)</span>
+<span id="cb20-54"><a href="regularized-logistic-regression.html#cb20-54" aria-hidden="true" tabindex="-1"></a>missclass.rate[v] <span class="ot">=</span> miss.rate</span>
+<span id="cb20-55"><a href="regularized-logistic-regression.html#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Missclassification rate for fold&quot;</span>, v,</span>
+<span id="cb20-56"><a href="regularized-logistic-regression.html#cb20-56" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;:&quot;</span>,missclass.rate[v]))</span>
+<span id="cb20-57"><a href="regularized-logistic-regression.html#cb20-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-58"><a href="regularized-logistic-regression.html#cb20-58" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;AUC for fold 1 : 0.987612612612613&quot;
+## [1] &quot;Missclassification rate for fold 1 : 0.0458015267175573&quot;
+## [1] &quot;AUC for fold 2 : 0.986607142857143&quot;
+## [1] &quot;Missclassification rate for fold 2 : 0.0403225806451613&quot;
+## [1] &quot;AUC for fold 3 : 0.964401294498382&quot;
+## [1] &quot;Missclassification rate for fold 3 : 0.0347826086956522&quot;
+## [1] &quot;AUC for fold 4 : 0.995535714285714&quot;
+## [1] &quot;Missclassification rate for fold 4 : 0.0234375&quot;
+## [1] &quot;AUC for fold 5 : 0.86078431372549&quot;
+## [1] &quot;Missclassification rate for fold 5 : 0.0427350427350427&quot;</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="regularized-logistic-regression.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.final)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = formula0, family = &quot;binomial&quot;, data = train.v)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.4133  -0.1320  -0.0505  -0.0133   2.4931  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -15.061586   5.390439  -2.794 0.005204 ** 
+## Age           0.016174   0.028955   0.559 0.576433    
+## Sexm         -1.008360   0.762910  -1.322 0.186258    
+## ALB          -0.194500   0.087471  -2.224 0.026176 *  
+## ALP          -0.108415   0.024431  -4.438 9.10e-06 ***
+## ALT          -0.019002   0.010499  -1.810 0.070319 .  
+## AST           0.079773   0.020999   3.799 0.000145 ***
+## BIL           0.086325   0.033615   2.568 0.010226 *  
+## CHE           0.173440   0.169450   1.024 0.306048    
+## CHOL         -1.302632   0.380756  -3.421 0.000624 ***
+## CREA          0.029690   0.007738   3.837 0.000125 ***
+## GGT           0.033794   0.007784   4.342 1.41e-05 ***
+## PROT          0.334879   0.091808   3.648 0.000265 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 366.413  on 497  degrees of freedom
+## Residual deviance:  81.187  on 485  degrees of freedom
+## AIC: 107.19
+## 
+## Number of Fisher Scoring iterations: 8</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="regularized-logistic-regression.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CV)</span></code></pre></div>
+<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="regularized-logistic-regression.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="regularized-logistic-regression.html#cb26-1" aria-hidden="true" tabindex="-1"></a>Average.AUC.logis<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of AUC:&quot;</span>, <span class="fu">mean</span>(err_vec1)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of AUC: 0.958988215595868&quot;</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="regularized-logistic-regression.html#cb28-1" aria-hidden="true" tabindex="-1"></a>Average.miss.logis<span class="ot">&lt;-</span><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Average of Miss:&quot;</span>, <span class="fu">mean</span>(missclass.rate)))</span></code></pre></div>
+<pre><code>## [1] &quot;Average of Miss: 0.0374158517586827&quot;</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="regularized-logistic-regression.html#cb30-1" aria-hidden="true" tabindex="-1"></a>AUC.LOGIS<span class="ot">&lt;-</span><span class="fu">mean</span>(err_vec1)</span>
+<span id="cb30-2"><a href="regularized-logistic-regression.html#cb30-2" aria-hidden="true" tabindex="-1"></a>miss.rate.LOGIS<span class="ot">&lt;-</span><span class="fu">mean</span>(missclass.rate)</span></code></pre></div>
+</div>
+<div id="fitting-the-best-model" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Fitting the Best Model<a href="regularized-logistic-regression.html#fitting-the-best-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="regularized-logistic-regression.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.final)</span></code></pre></div>
+<p><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-22-1.png" width="672" /><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-22-2.png" width="672" /><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-22-3.png" width="672" /><img src="HCV_MODELLINGr_files/figure-html/unnamed-chunk-22-4.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="regularized-logistic-regression.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fit.best$beta</span></span>
+<span id="cb32-2"><a href="regularized-logistic-regression.html#cb32-2" aria-hidden="true" tabindex="-1"></a>final.fit<span class="ot">&lt;-</span><span class="fu">glm</span>(train.v<span class="sc">$</span>Category<span class="sc">~</span>ALP<span class="sc">+</span>ALT<span class="sc">+</span>AST<span class="sc">+</span>BIL<span class="sc">+</span>CHOL<span class="sc">+</span>CREA<span class="sc">+</span>GGT<span class="sc">+</span>PROT, <span class="at">family =</span> (<span class="at">link =</span>  <span class="st">&quot;binomial&quot;</span>), <span class="at">data =</span> train.v)</span></code></pre></div>
+<p>Cross validation is used to select the best tuning parameter for the logistic regression. Obtain best tuning parameters - also, unimportant coefficients are shrunk to 0. Fit.final output the remaining significant variables.</p>
+<p><em>Average of AUC and Missclassification Rate;</em></p>
+<p><strong>Note</strong>
+<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>Logistic AUC: 0.98, MisClassification Rate: 0.027<a href="regularized-logistic-regression.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dataanalysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fitting-random-forest.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": "none",
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true,
+"toolbar": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+</body>
+
+</html>

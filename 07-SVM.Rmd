@@ -1,10 +1,10 @@
 
-# V- folds for SUPPORT VECTOR MACHINE 1
+# 5- folds for SUPPORT VECTOR MACHINE 1
 
-```{r}
+```{r, include=FALSE}
 library("kernlab")
 library("e1071")
-library(pROC)
+library("pROC")
 ```
 
 
@@ -27,15 +27,14 @@ for (v in 1:V) {
   mis.class.rate = c(mis.class.rate, v)
   discri.rate=c(discri.rate, v)
   train.v <- data[id.fold!=v, ]; test.v <- data[id.fold==v, ];
-
-
+    
     X.train <- train.v[, -1]; X.test <- test.v[, -1]
     scale.train <- scale(X.train, center=TRUE, scale = TRUE)
     train.v[,2:14] <- as.data.frame(scale.train)
     test.v[, 2:14] <- as.data.frame(scale(X.test,                        center=attributes(scale.train)$`scaled:center`,                        scale=attributes(scale.train)$`scaled:scale`))
 
     yobs <- test.v[, 1]
-?tune.svm
+
 ##Tuning Parameter and Best Parameter
 tunpar <- tune.svm(Category ~ ., data = train.v,
 gamma = 10^(-10:-5), cost = 10^(-4:4),
@@ -59,17 +58,19 @@ print(paste("Missclassification rate for fold", v,
 
 
 
+```{r}
+plot(pred.svm)
+```
 
-**comment**
-We fit the first support vector with specified gamma and cost  of regularizaton.We output the AUC ad misclassification for each fold.
+
 
 ```{r}
+#AVERAGE AUC AND MISCLASSIFICATION RATE
 
 Average.AUC.svm1<-print(paste("Average of AUC:", mean(discri.rate)))
 Average.Misclas.svm1<-print(paste("Average of Miss:", mean(mis.class.rate)))
 AUC.SVM1<- mean(discri.rate)
 Miss.rate.SVM1<-mean(mis.class.rate)
 ```
-
-**comment**
-We can observe that,`average AUC for this case 0.95 with misclassification rate 0.07.An average AUC of 0.95 shows that SVM is performed well in classification
+**Note** 
+^[SVM AUC: 0.96, SVM Missclassification Rate: 0.079]

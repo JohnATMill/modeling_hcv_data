@@ -1,24 +1,19 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 
-# LOGISTIC REGRESSION
+# REGULARIZED LOGISTIC REGRESSION  
 
 ```{r, include=FALSE}
 library(glmnet)
 library(verification)
 ```
 
-## Data Partitioning
+## Data Partition
 
 ```{r}
 
 data<-read.csv("data/CleanedData.csv",header = T,colClasses=c("NULL", rep(NA, 13))) 
 
 set.seed(125)
-V = 10
+V = 5
 n = NROW(data); n0 = sum(data$Category==0); n1 = n-n0;
 id.fold = 1:n
 id.fold[data$Category==0] <- sample(x=1:V, size=n0, replace=TRUE)
@@ -50,6 +45,8 @@ id.fold[data$Category==0] <- sample(x=1:V, size=n0, replace=TRUE)
 id.fold[data$Category==1] <- sample(x=1:V, size=n1, replace=TRUE)
 
 
+
+#Model, Error Rate, Prediction, AUC
 for (v in 1:V) {
 train.v <- data[id.fold!=v, ]; test.v <- data[id.fold==v, ];
 
@@ -69,16 +66,16 @@ fit.best = glmnet(x=X, y=y, family="binomial", alpha = 1,
                   lambda=best.lambda, standardize = T, 
                   thresh = 1e-07, maxit=1000)
 
-formula0 = Category ~. # ALP + AST + BIL + CHOL + CREA + GGT + PROT
+formula0 = Category ~. 
 fit.final = glm(formula0, family = "binomial", data = train.v)
-#summary(fit.final)
 
+#Observed response
 yobs = test.v$Category
 X.test = test.v[, -1]
 pred.glm = predict(fit.final, newdata = X.test, type="response")
 
-#X.test <- model.matrix (as.formula(formula0), data = test.v)
-#pred.glm <- predict(fit.best, newx = X.test, s=best.lambda, type="response")
+
+#AUC
 
 mod = roc.area(yobs, pred.glm)$A
 err_vec1[v] = mod
@@ -97,26 +94,25 @@ summary(fit.final)
 
 ```{r}
 plot(CV)
+plot(mod)
 ```
 
-*COMMENT*
-We can see that the best parameter lambda is 
+ 
 
 
 ```{r}
 Average.AUC.logis<-print(paste("Average of AUC:", mean(err_vec1)))
 Average.miss.logis<-print(paste("Average of Miss:", mean(missclass.rate)))
-print(fit.best$beta)
-best.lambda
+
 AUC.LOGIS<-mean(err_vec1)
-miss.rate.LOIS<-mean(missclass.rate)
+miss.rate.LOGIS<-mean(missclass.rate)
 
 ```
 
 
 ## Fitting the Best Model
 
-```{r}
+```{r, warning=FALSE}
 plot(fit.final)
 #fit.best$beta
 final.fit<-glm(train.v$Category~ALP+ALT+AST+BIL+CHOL+CREA+GGT+PROT, family = (link =  "binomial"), data = train.v)
@@ -125,14 +121,12 @@ final.fit<-glm(train.v$Category~ALP+ALT+AST+BIL+CHOL+CREA+GGT+PROT, family = (li
 
 
 
-**comment**
 
-Cross validation is used to select the best tuning parameter for the logistic regression.We can observe that the best lambda is 0.0204.We can also observe that,the coefficient(ALP,AST and CHOL) are all negative and thus have been shrunk to 0.Thus,we are left with the variables with the positive values.Also,we can observe that all the values the parameters with positive coefficient are statistically significant.
+Cross validation is used to select the best tuning parameter for the logistic regression. Obtain best tuning parameters - also, unimportant coefficients are shrunk to 0. Fit.final output the remaining significant variables.
 
 *Average of AUC and Missclassification Rate;*
 
-We can observe that the average of the AUC from the V-folds is approximately 0.96 and misclassification of 0.04.This shows that model was good in making correct with predictions.
-
-
+**Note** 
+^[Logistic AUC: 0.98, MisClassification Rate: 0.027]
 
 

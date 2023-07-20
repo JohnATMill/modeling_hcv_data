@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER | Modeling HCV Data - Classification Models</title>
-  <meta name="description" content="10 TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER | Modeling HCV Data - Classification Models" />
+  <title>9 Summary | Modeling HCV Data - Classification Models</title>
+  <meta name="description" content="9 Summary | Modeling HCV Data - Classification Models" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER | Modeling HCV Data - Classification Models" />
+  <meta property="og:title" content="9 Summary | Modeling HCV Data - Classification Models" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER | Modeling HCV Data - Classification Models" />
+  <meta name="twitter:title" content="9 Summary | Modeling HCV Data - Classification Models" />
   
   
   
 
-<meta name="author" content="John Koomson, FSA, MAAA" />
+<meta name="author" content="John Koomson" />
 
 
 
@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="v--folds-for-support-vector-machine-1.html"/>
+<link rel="prev" href="folds-for-support-vector-machine-1.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -51,6 +51,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -139,24 +146,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modeling HCV Data</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Models</a></li>
-<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a></li>
-<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview and Bookdown</a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#findings"><i class="fa fa-check"></i><b>3.1</b> FINDINGS</a></li>
+<li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#missing-values-and-mice-imputation."><i class="fa fa-check"></i><b>2.1</b> Missing values and MICE Imputation.</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> LOGISTIC REGRESSION</a>
+<li class="chapter" data-level="3" data-path="dataanalysis.html"><a href="dataanalysis.html"><i class="fa fa-check"></i><b>3</b> Basic Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#data-partitioning"><i class="fa fa-check"></i><b>4.1</b> Data Partitioning</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
+<li class="chapter" data-level="3.1" data-path="dataanalysis.html"><a href="dataanalysis.html#density-plot"><i class="fa fa-check"></i><b>3.1</b> Density Plot</a></li>
+<li class="chapter" data-level="3.2" data-path="dataanalysis.html"><a href="dataanalysis.html#interactive-plot-among-the-columns"><i class="fa fa-check"></i><b>3.2</b> Interactive Plot Among the columns</a></li>
+<li class="chapter" data-level="3.3" data-path="dataanalysis.html"><a href="dataanalysis.html#outlier-detection"><i class="fa fa-check"></i><b>3.3</b> Outlier Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html"><i class="fa fa-check"></i><b>4</b> REGULARIZED LOGISTIC REGRESSION</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#data-partition"><i class="fa fa-check"></i><b>4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="4.2" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fold-cross-validation---logistic-regression"><i class="fa fa-check"></i><b>4.2</b> 5-Fold Cross Validation - Logistic Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="regularized-logistic-regression.html"><a href="regularized-logistic-regression.html#fitting-the-best-model"><i class="fa fa-check"></i><b>4.3</b> Fitting the Best Model</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="fitting-random-forest.html"><a href="fitting-random-forest.html"><i class="fa fa-check"></i><b>5</b> FITTING RANDOM FOREST</a></li>
-<li class="chapter" data-level="6" data-path="v-folds-for-multivariate-adaptive-regression-splines.html"><a href="v-folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> V-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
-<li class="chapter" data-level="7" data-path="v-folds-for-artificial-neural-networks-1.html"><a href="v-folds-for-artificial-neural-networks-1.html"><i class="fa fa-check"></i><b>7</b> V-Folds for Artificial Neural Networks 1</a></li>
-<li class="chapter" data-level="8" data-path="artificial-neural-network-2v-folds-for-the-second-ann.html"><a href="artificial-neural-network-2v-folds-for-the-second-ann.html"><i class="fa fa-check"></i><b>8</b> ARTIFICIAL NEURAL NETWORK 2(V-FOLDS FOR THE SECOND ANN)</a></li>
-<li class="chapter" data-level="9" data-path="v--folds-for-support-vector-machine-1.html"><a href="v--folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>9</b> V- folds for SUPPORT VECTOR MACHINE 1</a></li>
-<li class="chapter" data-level="10" data-path="table-of-average-auc-for-v-fold-of-each-classifier.html"><a href="table-of-average-auc-for-v-fold-of-each-classifier.html"><i class="fa fa-check"></i><b>10</b> TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER</a></li>
+<li class="chapter" data-level="6" data-path="folds-for-multivariate-adaptive-regression-splines.html"><a href="folds-for-multivariate-adaptive-regression-splines.html"><i class="fa fa-check"></i><b>6</b> 5-FOLDS FOR MULTIVARIATE ADAPTIVE REGRESSION SPLINES</a></li>
+<li class="chapter" data-level="7" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html"><i class="fa fa-check"></i><b>7</b> 5-Folds for Artificial Neural Networks (1 LAYER)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="folds-for-artificial-neural-networks-1-layer.html"><a href="folds-for-artificial-neural-networks-1-layer.html#artificial-neural-network-2-2-layers"><i class="fa fa-check"></i><b>7.1</b> ARTIFICIAL NEURAL NETWORK 2 (2 layers)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="folds-for-support-vector-machine-1.html"><a href="folds-for-support-vector-machine-1.html"><i class="fa fa-check"></i><b>8</b> 5- folds for SUPPORT VECTOR MACHINE 1</a></li>
+<li class="chapter" data-level="9" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>9</b> Summary</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/JohnATMill/modeling_hcv_data.git" target="blank">Github Code</a></li>
 
@@ -177,25 +191,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="table-of-average-auc-for-v-fold-of-each-classifier" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">10</span> TABLE OF AVERAGE AUC FOR V FOLD OF EACH CLASSIFIER<a href="table-of-average-auc-for-v-fold-of-each-classifier.html#table-of-average-auc-for-v-fold-of-each-classifier" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="table-of-average-auc-for-v-fold-of-each-classifier.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cbind(AUC.ANN1,AUC.ANN2,AUC.LOGIS,AUC.mars,AUC.RF,AUC.SVM1,AUC.SVM2)</span></span></code></pre></div>
-<p><strong>Comment Based on Average Average AUC of the V folds</strong></p>
-<p>From the above output,we can observe that,the average AUC of the V-folds for Support vector machine 2 is the highest thus a modeler might consider using his model for the classification problem. Though it gave the highest,AUC, we observe that the SVM takes a long time to train the data.In addition,we observe that,choosing an appropriate kernel for the SVM is quite difficult.Also,we know that,</p>
-<p>Aside THE SVM2,we can observe that,the Random forest performed well among the other classifiers.Since no feature scaling is required for random forest ,it becomes appropriate to consider if a modeler is tight with time.This makes is less time consuming.Also,one can observe that,the random forest is insensitive to outliers.</p>
-<p>After the random forest,we can observe that,averagely the AUC of ANN2,Logistic and ANN1.</p>
-<p>We can also observe that,MARs performed badly among all the classifiers though 92% average AUC for all the folds is good.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="table-of-average-auc-for-v-fold-of-each-classifier.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cbind(miss.rate.RF,Miss.rate.ANN1,Miss.rate.ANN2,Miss.rate.SVM1,Miss.rate.SVM2,miss.rate.LOIS)</span></span></code></pre></div>
-<p><strong>comment Based on Misclassification Rate</strong></p>
-<p>We can observe that, SVM1 has the highest misclassification rate on average over the V folds.Thus the model wil be wrong most of the time than the other classifiers.We can observe that,the Random Forest had the lower Misclassification rate on average compared tothe other classifiers.Though the SVM produced the highest AUC rate on average,it is likely to make wrong prediction as compared to the Random forest.In this case, the Random Forest can be considered better among all the classifiers.</p>
+<div id="summary" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Summary<a href="summary.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>As already mentioned, the focus of this project was to illustrate a basic example of how data science projects can be incorporated in bookdown - making it efficient for readers usability. Authors can make interactive plot and allow users to change values of the models included in this poject( Check:<a href="https://shiny.posit.co/">R shiny</a>). Code to the models can be found on Github.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="summary.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cbind(AUC.ANN1,AUC.ANN2,AUC.LOGIS,AUC.mars,AUC.RF,AUC.SVM1,AUC.SVM2)</span></span></code></pre></div>
+<!-- From the above output,we can observe that,the average AUC of the V-folds for Support vector machine 2 is the highest thus a modeler might consider using his model for the classification problem. Though it gave the highest,AUC, we observe that the SVM takes a long time to train the data.In addition,we observe that,choosing an appropriate kernel for the SVM is quite difficult.Also,we know that, -->
+<!-- Aside THE SVM2,we can observe that,the Random forest performed well among the other classifiers.Since no feature scaling is required for random forest ,it becomes appropriate to consider if a modeler is tight with time.This makes is less time consuming.Also,one can observe that,the random  forest is insensitive to outliers. -->
+<!-- After the random forest,we can observe that,averagely the AUC of ANN2,Logistic and ANN1. -->
+<!-- We can also observe that,MARs performed badly among all the classifiers though 92% average AUC for all the folds is good. -->
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="summary.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cbind(miss.rate.RF,Miss.rate.ANN1,Miss.rate.ANN2,Miss.rate.SVM1,Miss.rate.SVM2,miss.rate.LOIS)</span></span></code></pre></div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="v--folds-for-support-vector-machine-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="folds-for-support-vector-machine-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

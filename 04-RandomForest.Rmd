@@ -1,5 +1,5 @@
 # FITTING RANDOM FOREST
-
+See Github for code [JohnAtMill](https://github.com/JohnATMill/modeling_hcv_data.git)
 
 ```{r, include=FALSE}
 library(randomForest)
@@ -7,7 +7,7 @@ library(pROC)
 ```
 
 
-```{r}
+```{r, include=FALSE}
 data<-read.csv("data/CleanedData.csv",header = T,colClasses=c("NULL", rep(NA, 13)))
 
 set.seed(120)
@@ -50,12 +50,15 @@ missclass.rate[v] = miss.rate
 print(paste("Missclassification rate for fold", v,
            ":",missclass.rate[v]))
 }
-varImpPlot(fit.rf)    ##Variance Importance Plot
-importance(fit.rf)  
+
 ```
 
 
-**comment**
+```{r}
+varImpPlot(fit.rf)    ##Variable Importance Plot
+importance(fit.rf)  
+```
+
 
 The importance ranking shows that.AST,ALP,ALT are the important variables by random forest respectively.
 
@@ -66,6 +69,7 @@ Average.mis.rf<-print(paste("Average of Miss is ", mean(missclass.rate)))
 AUC.RF<-mean(err_vec1)
 miss.rate.RF<-mean(missclass.rate)
 ```
-**comment**
 
-The average AUC of the v folds is 0.98 which shows a good classification by the random forest leading to a low misclassification is 0.02.
+**Note** 
+^[RandomSorest AUC: 0.98, MisClassification Rate: 0.027] Similar with logistic model
+
